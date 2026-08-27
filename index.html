@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6efe5" />
+  <meta name="description" content="The wedding invitation of Satheesh Arul & Malathi Vasudevan — 13 September 2026." />
+  <title>Satheesh & Malathi — Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="petal-layer" aria-hidden="true"></div>
+  <div class="top-progress"><span id="progress"></span></div>
+
+  <!-- Envelope gate -->
+  <section id="gate" class="gate" aria-label="Open invitation">
+    <div class="gate-glow"></div>
+    <div class="envelope-wrap">
+      <p class="eyebrow">A wedding invitation</p>
+      <div id="envelope" class="envelope" role="button" tabindex="0" aria-label="Tap to open the invitation">
+        <div class="env-paper">
+          <div class="env-pattern"></div>
+          <div class="env-liner"></div>
+          <div class="env-front">
+            <div class="crest">❦</div>
+            <div class="env-small">TOGETHER WITH THEIR FAMILIES</div>
+            <div class="env-names">Satheesh <span>&</span> Malathi</div>
+            <div class="env-date">13 · 09 · 2026</div>
+          </div>
+          <div class="env-flap"></div>
+          <button id="seal" class="seal" aria-label="Open invitation"><span>Tap<br>to open</span></button>
+        </div>
+      </div>
+      <p class="tap-hint">Tap the seal to open <span>♥</span></p>
+    </div>
+  </section>
+
+  <main id="invitation" class="invitation is-locked">
+    <!-- Cover -->
+    <section class="hero section" id="home">
+      <div class="hero-backdrop"></div>
+      <div class="hero-sparkles" aria-hidden="true"></div>
+      <div class="hero-content reveal">
+        <p class="eyebrow">With the blessings of our elders</p>
+        <div class="ganesha" aria-hidden="true">ॐ</div>
+        <p class="script-line">We are getting married</p>
+        <h1>Satheesh Arul <span>&amp;</span> Malathi Vasudevan</h1>
+        <p class="hero-quote">Two hearts, one tide, and a lifetime written in the rhythm of the sea.</p>
+        <div class="hero-date"><span>13</span><b>September</b><span>2026</span></div>
+        <a class="scroll-cue" href="#reveal">Scroll to begin <i>↓</i></a>
+      </div>
+    </section>
+
+    <!-- Scratch reveal -->
+    <section class="section reveal-section" id="reveal">
+      <div class="ornament">✦</div>
+      <p class="eyebrow">A little surprise</p>
+      <h2>Scratch to Reveal</h2>
+      <p class="section-lede">Use your finger or mouse to uncover the moments we cannot wait to celebrate with you.</p>
+      <div class="scratch-shell">
+        <div class="scratch-card" id="scratchCard">
+          <div class="scratch-content">
+            <div class="mini-heart">♥</div>
+            <p class="script">Our celebrations</p>
+            <div class="scratch-event"><strong>Reception</strong><span>12 September 2026 · 6:30 PM onwards</span></div>
+            <div class="scratch-event"><strong>Wedding / Muhurtham</strong><span>13 September 2026 · 7:30–8:30 AM</span></div>
+            <p class="scratch-note">At Heavens Beach House · Uthandi</p>
+          </div>
+          <canvas id="scratchCanvas" aria-label="Scratch this card to reveal wedding details"></canvas>
+          <div class="scratch-label" id="scratchLabel">SCRATCH HERE ♥</div>
+        </div>
+        <p class="scratch-status" id="scratchStatus">Keep going — reveal a little more.</p>
+      </div>
+    </section>
+
+    <!-- Couple -->
+    <section class="section couple-section" id="couple">
+      <div class="image-frame couple-frame reveal">
+        <img src="assets/couple.jpg" alt="Couple holding hands at a wedding celebration" loading="lazy">
+        <div class="frame-caption">A new chapter begins</div>
+      </div>
+      <div class="couple-copy reveal">
+        <p class="eyebrow">The couple</p>
+        <h2>Satheesh Arul <span>♥</span> Malathi Vasudevan</h2>
+        <p>From two paths to one beautiful journey — with family, friendship, laughter and a little sea breeze along the way.</p>
+        <div class="parents"><span>Arul &amp; Kala</span><i>and</i><span>Vasudevan &amp; Kavitha</span></div>
+      </div>
+    </section>
+
+    <!-- Countdown -->
+    <section class="section countdown-section" id="countdown">
+      <div class="wave-art" aria-hidden="true"></div>
+      <div class="reveal">
+        <p class="eyebrow">Until we say “I do”</p>
+        <h2>The countdown</h2>
+        <p class="section-lede">13 September 2026 · 7:30 AM IST</p>
+        <div class="countdown-grid" id="countdownGrid" aria-live="polite">
+          <div class="time-box"><strong id="days">00</strong><span>Days</span></div>
+          <div class="time-box"><strong id="hours">00</strong><span>Hours</span></div>
+          <div class="time-box"><strong id="minutes">00</strong><span>Minutes</span></div>
+          <div class="time-box"><strong id="seconds">00</strong><span>Seconds</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Events -->
+    <section class="section events-section" id="events">
+      <div class="reveal section-heading">
+        <p class="eyebrow">Mark your calendar</p>
+        <h2>Wedding celebrations</h2>
+        <p class="section-lede">Three beautiful moments, one unforgettable weekend.</p>
+      </div>
+      <div class="timeline">
+        <article class="event-card reveal">
+          <div class="event-image"><img src="assets/haldi.jpg" alt="Yellow Haldi wedding decor" loading="lazy"><span>01</span></div>
+          <div class="event-body"><p class="event-tag">🌼 Haldi &amp; Mehendi</p><h3>Golden beginnings</h3><div class="event-meta"><b>12 September 2026</b><span>From 12:30 PM onwards</span></div><p>A bright afternoon of colour, laughter and family blessings as the celebrations begin.</p></div>
+        </article>
+        <article class="event-card reverse reveal">
+          <div class="event-image"><img src="assets/reception.jpg" alt="Elegant floral reception decor" loading="lazy"><span>02</span></div>
+          <div class="event-body"><p class="event-tag">✨ Reception</p><h3>An evening by the sea</h3><div class="event-meta"><b>12 September 2026</b><span>From 6:30 PM onwards</span></div><p>Join us for an elegant evening of smiles, stories, music and togetherness.</p></div>
+        </article>
+        <article class="event-card reveal">
+          <div class="event-image"><img src="assets/wedding.jpg" alt="Traditional South Indian wedding invitation decor" loading="lazy"><span>03</span></div>
+          <div class="event-body"><p class="event-tag">💒 Wedding / Muhurtham</p><h3>The auspicious moment</h3><div class="event-meta"><b>13 September 2026</b><span>7:30 AM – 8:30 AM</span></div><p>With the blessings of our elders, we invite you to grace our most cherished ceremony.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Venue -->
+    <section class="section venue-section" id="venue">
+      <div class="venue-photo reveal"><img src="assets/beach.jpg" alt="Beach wedding setup at sunset" loading="lazy"><div class="sun-glow"></div></div>
+      <div class="venue-card reveal">
+        <p class="eyebrow">Where the waves meet forever</p>
+        <h2>Heavens Beach House</h2>
+        <div class="venue-line"></div>
+        <p>3, 59, 3rd Main Rd, Uthandi,<br>Chennai, Greater Chennai,<br>Tamil Nadu – 600119</p>
+        <a class="gold-button" href="https://share.google/BQaY31mBCdPCMj4sA" target="_blank" rel="noopener">📍 Get Directions</a>
+      </div>
+    </section>
+
+    <!-- RSVP -->
+    <section class="section rsvp-section" id="rsvp">
+      <div class="rsvp-shell reveal">
+        <div class="rsvp-deco" aria-hidden="true">❦</div>
+        <p class="eyebrow">A message from the heart</p>
+        <h2>Send us your wishes</h2>
+        <p class="section-lede">We would love to hear from you. Your blessings mean the world to us.</p>
+        <form id="wishForm">
+          <label>Guest name<input id="guestName" name="guestName" type="text" autocomplete="name" placeholder="Your name" required></label>
+          <label>Your wishes<textarea id="guestMessage" name="guestMessage" rows="4" placeholder="Write a little love for the couple…" required></textarea></label>
+          <button class="gold-button full" type="submit">❤️ Send Wishes on WhatsApp</button>
+        </form>
+        <p class="privacy-note">Your message opens WhatsApp with a pre-filled wish. Nothing is stored on this website.</p>
+      </div>
+    </section>
+
+    <!-- Closing -->
+    <section class="closing section" id="closing">
+      <div class="closing-inner reveal">
+        <div class="crest-large">♥</div>
+        <p class="script">With love,</p>
+        <h2>Satheesh Arul<br><span>&amp;</span><br>Malathi Vasudevan</h2>
+        <p>13 · 09 · 2026</p>
+        <div class="closing-rule"></div>
+        <p class="small">Thank you for being part of our story.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
