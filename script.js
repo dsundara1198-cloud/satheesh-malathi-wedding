@@ -53,7 +53,8 @@ const card=document.getElementById('scratchCard');
 const status=document.getElementById('scratchStatus');
 const label=document.getElementById('scratchLabel');
 const ctx=canvas.getContext('2d',{willReadFrequently:true});
-let drawing=false, scratched=0, completed=false;
+let drawing=false, scratchStrokes=0, strokeMoved=false, completed=false;
+const MAX_SCRATCHES=5;
 function resizeCanvas(){
   const dpr=Math.min(window.devicePixelRatio||1,2);
   const r=card.getBoundingClientRect();
@@ -65,28 +66,69 @@ function resizeCanvas(){
   ctx.fillStyle='rgba(255,255,255,.12)';
   for(let i=0;i<180;i++){ctx.beginPath();ctx.arc(Math.random()*r.width,Math.random()*r.height,Math.random()*1.7+.3,0,Math.PI*2);ctx.fill()}
   ctx.font='600 12px DM Sans';ctx.textAlign='center';ctx.fillStyle='rgba(255,248,242,.9)';ctx.fillText('A LITTLE LOVE IS WAITING',r.width/2,r.height/2+80);
-  scratched=0;completed=false;label.style.opacity='1';status.textContent='Keep going — reveal a little more.';
+  scratchStrokes=0;strokeMoved=false;completed=false;label.style.opacity='1';status.textContent='Keep going — reveal a little more.';
 }
-function point(e){const r=canvas.getBoundingClientRect();const p=e.touches?e.touches[0]:e;return{x:p.clientX-r.left,y:p.clientY-r.top}}
-function scratch(e){if(!drawing||completed)return;e.preventDefault();const p=point(e);ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(p.x,p.y,28,0,Math.PI*2);ctx.fill();scratched++;
-  if(scratched%10===0) checkScratch();
+function point(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+function scratch(e){
+  if(!drawing||completed)return;
+  e.preventDefault();
+  const p=point(e);
+  strokeMoved=true;
+  ctx.globalCompositeOperation='destination-out';
+  ctx.lineWidth=56;
+  ctx.lineCap='round';
+  ctx.lineJoin='round';
+  ctx.beginPath();
+  if(scratch.lastPoint){
+    ctx.moveTo(scratch.lastPoint.x,scratch.lastPoint.y);
+    ctx.lineTo(p.x,p.y);
+  }else{
+    ctx.moveTo(p.x,p.y);
+    ctx.lineTo(p.x+0.1,p.y+0.1);
+  }
+  ctx.stroke();
+  scratch.lastPoint=p;
 }
-function checkScratch(){
-  const data=ctx.getImageData(0,0,canvas.width,canvas.height).data;let transparent=0;
-  for(let i=3;i<data.length;i+=32) if(data[i]<30) transparent++;
-  const ratio=transparent/(data.length/32);
-  if(ratio>.58&&!completed){completed=true;label.style.opacity='0';status.textContent='✨ You revealed it! Let the celebrations begin.';celebrate();}
+function revealCompletely(){
+  completed=true;
+  drawing=false;
+  strokeMoved=false;
+  scratch.lastPoint=null;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  label.style.opacity='0';
+  status.textContent='✨ You revealed it! Let the celebrations begin.';
+  celebrate();
 }
-canvas.addEventListener('pointerdown',e=>{drawing=true;canvas.setPointerCapture(e.pointerId);scratch(e)});
-canvas.addEventListener('pointermove',scratch);canvas.addEventListener('pointerup',e=>{drawing=false;checkScratch()});canvas.addEventListener('pointercancel',()=>drawing=false);
+canvas.addEventListener('pointerdown',e=>{
+  if(completed)return;
+  drawing=true;
+  strokeMoved=false;
+  scratch.lastPoint=null;
+  canvas.setPointerCapture(e.pointerId);
+  scratch(e);
+});
+canvas.addEventListener('pointermove',scratch);
+canvas.addEventListener('pointerup',e=>{
+  if(!drawing)return;
+  drawing=false;
+  scratch.lastPoint=null;
+  if(strokeMoved){
+    scratchStrokes++;
+    if(scratchStrokes>=MAX_SCRATCHES){
+      revealCompletely();
+    }
+  }
+});
+canvas.addEventListener('pointercancel',()=>{
+  drawing=false;
+  scratch.lastPoint=null;
+});
 window.addEventListener('resize',()=>{if(invitation.classList.contains('is-live'))resizeCanvas()});
 setTimeout(resizeCanvas,1100);
 
-function celebrate(){for(let i=0;i<14;i++){const el=document.createElement('span');el.textContent=['♥','✦','✧'][i%3];el.style.position='fixed';el.style.left=(40+Math.random()*20)+'vw';el.style.top='48vh';el.style.zIndex=80;el.style.color=i%2?'#b95d55':'#a87926';el.style.fontSize=(12+Math.random()*18)+'px';el.style.pointerEvents='none';document.body.appendChild(el);el.animate([{transform:'translate(0,0) scale(.7)',opacity:1},{transform:`translate(${(Math.random()-.5)*260}px,${-80-Math.random()*220}px) rotate(${Math.random()*180-90}deg)`,opacity:0}],{duration:1000+Math.random()*600,easing:'cubic-bezier(.2,.7,.2,1)'}).onfinish=()=>el.remove();}}
-
 // WhatsApp RSVP
 const form=document.getElementById('wishForm');
-form.addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('guestName').value.trim();const message=document.getElementById('guestMessage').value.trim();if(!name||!message)return;const text=`Hello Satheesh & Malathi! ❤️\n\nMy name is ${name}.\n\nMy wishes for you:\n${message}\n\nWishing you both a lifetime of love, happiness and beautiful memories! 💍✨`;window.open(`https://wa.me/919514216803?text=${encodeURIComponent(text)}`,'_blank','noopener');});
+form.querySelectorAll('.wish-button').forEach(button=>button.addEventListener('click',()=>{const name=document.getElementById('guestName').value.trim();const message=document.getElementById('guestMessage').value.trim();if(!name||!message){form.reportValidity();return;}const recipient=button.dataset.recipient;const isBride=recipient==='bride';const person=isBride?'Malathi':'Satheesh';const number=isBride?'919514216803':'919360005460';const text=`Hello ${person}! ❤️\n\nMy name is ${name}.\n\nMy wishes for you:\n${message}\n\nWishing you a lifetime of love, happiness and beautiful memories! 💍✨`;window.open(`https://wa.me/${number}?text=${encodeURIComponent(text)}`,'_blank','noopener');}));
 
 // Light floating petals after opening
 function startPetals(){
